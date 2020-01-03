@@ -31,6 +31,7 @@ def run():
     parsed.max = max(MAX_TIMEOUT, parsed.max) if parsed.max is not None else parsed.min * parsed.tries
     command = ' '.join(parsed.command) if isinstance(parsed.command, list) else parsed.command
     # run command
+    last_res = 1
     res = AttemptResults(parsed.tries)
     for attempt in range(parsed.tries):
         # compute timeout
@@ -45,6 +46,7 @@ def run():
         monitor.start()
         monitor.join()
         assert res[attempt] != 'ND'
+        last_res = res[attempt]
         rrlogger.debug('The attempt #{a} finished with code: {c}'.format(a=attempt, c=res[attempt]))
         # check what happened
         if res[attempt] == 0:
@@ -78,6 +80,7 @@ def run():
                 pass
     # ---
     rrlogger.info('Done!')
+    exit(last_res if last_res is not None else 1)
 
 
 def _get_timeout(parsed, attempt):
