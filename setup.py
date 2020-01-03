@@ -17,8 +17,8 @@ def get_version(filename):
     return version
 
 
-if sys.version_info < (3, 6):
-    msg = 'run-batch works with Python 3.6 and later.\nDetected %s.' % str(sys.version)
+if sys.version_info < (3, 5):
+    msg = 'run-and-retry works with Python 3.5 and later.\nDetected %s.' % str(sys.version)
     sys.exit(msg)
 
 
@@ -35,7 +35,7 @@ setup(
     author = 'Andrea F. Daniele',
     author_email = 'afdaniele@ttic.edu',
     url = 'https://github.com/afdaniele/',
-    download_url = f'https://github.com/afdaniele/run-and-retry/tarball/{lib_version}',
+    download_url = 'https://github.com/afdaniele/run-and-retry/tarball/{v}'.format(v=lib_version),
     zip_safe=False,
     include_package_data=True,
     keywords = ['batch', 'parameterized', 'commands', 'shell'],
